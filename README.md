@@ -1,5 +1,6 @@
 # pull-quote-center
 A jQuery plugin utility which dynamically inserts a symmetrical pull-quote element clone to enable a hacky float: center
+between two columns of text
 
 ## usage
 [coming soon]
