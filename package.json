@@ -1,0 +1,32 @@
+{
+  "name": "pull-quote-center",
+  "version": "1.0.0",
+  "description": "A jQuery plugin utility which dynamically inserts a symmetrical pull-quote element clone to enable a hacky float: center between two columns of text",
+  "main": "dist/pull-quote-center.bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakedowns/pull-quote-center.git"
+  },
+  "keywords": [
+    "text-overflow-ellipsis"
+  ],
+  "author": "Jake Downs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakedowns/pull-quote-center/issues"
+  },
+  "homepage": "https://github.com/jakedowns/pull-quote-center#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "per-word-action": "^1.0.0",
+    "underscore": "^1.8.3",
+    "webpack": "^2.3.3"
+  }
+}

@@ -1,0 +1,264 @@
+<html>
+<head>
+    <title>pull-quote-center demo</title>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="dist/pull-quote-center.bundle.js"></script>
+    <script>
+        // wait for DOM ready
+        $(document).ready(function () {
+            var debug_mode_enabled = false;
+
+            function update() {
+                $('.content').pullQuoteCenter({
+                    debug: debug_mode_enabled,
+                    wrapper_selector: '.two_column_wrapper',
+                    pquote_selector: '.pquote.center',
+                    clone_classname: 'pqc-clone',
+                    lhc_selector: '.left-column',
+                    rhc_selector: '.right-column',
+                    responsive: false,
+                });
+            }
+
+            var update_debounced = _.debounce(update, 150);
+
+            $(window).resize(update_debounced);
+
+            $('.toggle-debug').change(function (e) {
+                debug_mode_enabled = $(e.currentTarget).is(':checked') ? true : false;
+
+                if(!debug_mode_enabled){
+                    $('.pqc-clone').remove();
+                    $('.pquote.center').attr('style', '');
+                }else{
+                    update();
+                }
+
+            });
+
+            // init
+            update();
+
+            // bug: doing it twice seems to help
+            setTimeout(function(){
+                update();
+            });
+        });
+    </script>
+    <style>
+        html, body {
+            background-color: #eee;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        p {
+            line-height: 25px;
+            font-size: 16px;
+        }
+
+        .content {
+            margin: 0 auto;
+            max-width: 768px;
+        }
+
+        .left-column {
+            width: calc(50% - 10px);
+            margin-right: 20px;
+            float: left;
+        }
+
+        .right-column {
+            width: calc(50% - 10px);
+            float: left;
+        }
+
+        .pquote {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            font-size: 20px;
+            font-family: serif;
+            font-weight: bold;
+            line-height: 25px;
+        }
+
+        .pquote img {
+            width: 100%;
+            height: auto;
+        }
+
+        .pqc-clone {
+            opacity: 0;
+        }
+
+        .left-column .pquote.center {
+            float: right;
+            margin-right: -170px;
+            margin-left: 30px;
+        }
+
+        .right-column .pquote.center {
+            float: left;
+            margin-left: -170px;
+            margin-right: 30px;
+        }
+
+        .text-align-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Responsive Demo of Pull Quote Center</h1>
+<p>See Github Repo for more: <a
+        href="https://github.com/jakedowns/pull-quote-center">https://github.com/jakedowns/pull-quote-center</a>
+</p>
+
+<p>This jQuery plugin takes specially classed pullquotes from the left hand
+    column, and adds a transparent clone of them to the right hand column.
+    Based partially on this css-trick: <a
+            href="https://css-tricks.com/float-center/">Faking float: center</a>
+</p>
+<p>Slightly more advanced since this way you're no longer limited to only
+    placing your element at the very top of two columns, but can have them
+    anywhere inline.</p>
+<div class="control">
+    <label for="toggle-debug">
+    Toggle Debug Mode: <input class="toggle-debug" id="toggle-debug" name="toggle-debug" type="checkbox">
+    </label>
+</div>
+
+<div class="content two_column_wrapper">
+    <div class="left-column">
+        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non
+            nisi. Vestibulum ac diam sit amet quam vehicula elementum sed sit
+            amet dui. Vivamus suscipit tortor eget felis porttitor volutpat.
+            Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Proin
+            eget tortor risus. Donec rutrum congue leo eget malesuada. Curabitur
+            non nulla sit amet nisl tempus convallis quis ac lectus.
+            Pellentesque in ipsum id orci porta dapibus. Nulla porttitor
+            accumsan tincidunt. Mauris blandit aliquet elit, eget tincidunt nibh
+            pulvinar a.</p>
+
+        <p>Donec rutrum congue leo eget malesuada. Nulla porttitor accumsan
+            tincidunt.
+
+                <span class="pquote center">
+                    <span class="blockquote">
+                        this is a special pull quote.
+                        the jquery plugin will carve out a space in the right hand column.
+                    </span>
+                </span>
+
+            Nulla porttitor accumsan tincidunt. Cras ultricies ligula sed magna
+            dictum porta. Vestibulum ac diam sit amet quam vehicula elementum
+            sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Cras
+            ultricies ligula sed magna dictum porta. Curabitur aliquet quam id
+            dui posuere blandit. Nulla porttitor accumsan tincidunt. Nulla quis
+            lorem ut libero malesuada feugiat.</p>
+
+        <p>Nulla porttitor accumsan tincidunt. Cras ultricies ligula sed magna
+            dictum porta. Donec rutrum congue leo eget malesuada. Praesent
+            sapien massa, convallis a pellentesque nec, egestas non nisi.
+            Pellentesque in ipsum id orci porta dapibus. Mauris blandit aliquet
+            elit, eget tincidunt nibh pulvinar a. Mauris blandit aliquet elit,
+            eget tincidunt nibh pulvinar a. Pellentesque in ipsum id orci porta
+            dapibus. Cras ultricies ligula sed magna dictum porta. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit.</p>
+
+        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+            posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
+            vel, ullamcorper sit amet ligula. Vivamus magna justo, lacinia eget
+            consectetur sed, convallis at tellus. Curabitur aliquet quam id dui
+            posuere blandit. Quisque velit nisi, pretium ut lacinia in,
+            elementum id enim.
+
+                <span class="pquote center text-align-center">
+                    <span class="blockquote">
+                        <img src="example/globe.png" alt="">
+                        <span class="caption">Look, a globe.</span>
+                    </span>
+                </span>
+
+            Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Proin eget tortor risus. Quisque velit nisi,
+            pretium ut lacinia in, elementum id enim. Vivamus magna justo,
+            lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem
+            ut libero malesuada feugiat. Praesent sapien massa, convallis a
+            pellentesque nec, egestas non nisi.</p>
+
+        <p>Sed porttitor lectus nibh. Pellentesque in ipsum id orci porta
+            dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id
+            enim. Proin eget tortor risus. Nulla porttitor accumsan tincidunt.
+            Nulla porttitor accumsan tincidunt. Donec sollicitudin molestie
+            malesuada. Curabitur aliquet quam id dui posuere blandit. Proin eget
+            tortor risus. Curabitur non nulla sit amet nisl tempus convallis
+            quis ac lectus.</p>
+    </div>
+    <div class="right-column">
+        <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at
+            tellus. Pellentesque in ipsum id orci porta dapibus. Sed porttitor
+            lectus nibh. Vivamus magna justo, lacinia eget consectetur sed,
+            convallis at tellus. Praesent sapien massa, convallis a pellentesque
+            nec, egestas non nisi. Donec rutrum congue leo eget malesuada. Proin
+            eget tortor risus. Cras ultricies ligula sed magna dictum porta.
+            Quisque velit nisi, pretium ut lacinia in, elementum id enim.
+            Quisque velit nisi, pretium ut lacinia in, elementum id enim.</p>
+
+        <p>Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor
+            lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Mauris
+            blandit aliquet elit, eget tincidunt nibh pulvinar a. Vivamus magna
+            justo, lacinia eget consectetur sed, convallis at tellus. Vivamus
+            suscipit tortor eget felis porttitor volutpat. Curabitur aliquet
+            quam id dui posuere blandit. Curabitur arcu erat, accumsan id
+            imperdiet et, porttitor at sem. Pellentesque in ipsum id orci porta
+            dapibus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar
+            a.</p>
+
+        <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+            posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
+            vel, ullamcorper sit amet ligula. Proin eget tortor risus.
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+            posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
+            vel, ullamcorper sit amet ligula. Proin eget tortor risus. Vivamus
+            magna justo, lacinia eget consectetur sed, convallis at tellus.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            magna justo, lacinia eget consectetur sed, convallis at tellus.
+            Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.
+            Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.</p>
+
+        <p>Vivamus suscipit tortor eget felis porttitor volutpat. Mauris blandit
+            aliquet elit, eget tincidunt nibh pulvinar a. Vivamus suscipit
+            tortor eget felis porttitor volutpat. Mauris blandit aliquet elit,
+            eget tincidunt nibh pulvinar a. Curabitur aliquet quam id dui
+            posuere blandit. Curabitur arcu erat, accumsan id imperdiet et,
+            porttitor at sem. Curabitur arcu erat, accumsan id imperdiet et,
+            porttitor at sem. Quisque velit nisi, pretium ut lacinia in,
+            elementum id enim. Proin eget tortor risus. Pellentesque in ipsum id
+            orci porta dapibus.</p>
+
+        <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+            Curabitur aliquet quam id dui posuere blandit. Curabitur aliquet
+            quam id dui posuere blandit. Cras ultricies ligula sed magna dictum
+            porta. Praesent sapien massa, convallis a pellentesque nec, egestas
+            non nisi. Curabitur aliquet quam id dui posuere blandit. Nulla
+            porttitor accumsan tincidunt. Vestibulum ante ipsum primis in
+            faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
+            neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
+            Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed
+            porttitor lectus nibh.</p>
+    </div>
+</div>
+</body>
+</html>
